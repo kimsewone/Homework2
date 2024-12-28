@@ -10,7 +10,7 @@ enum EAnimal
 	MAX
 };
 
-class Animal 
+class Animal
 {
 public:
 	Animal() {}
@@ -28,24 +28,24 @@ public:
 	void Action() override {
 		cout << "  Dog Action!!" << endl;
 	}
-	~Dog(){}
+	~Dog() {}
 };
 class Cat :public Animal
 {
 public:
-	Cat(){}
+	Cat() {}
 	void makeSound() override {
 		cout << " Nyaong~ Nyaong~" << endl;
 	}
 	void Action() override {
 		cout << " Cat Action!!" << endl;
 	}
-	~Cat(){}
+	~Cat() {}
 };
 class Cow :public Animal
 {
 public:
-	Cow(){}
+	Cow() {}
 	void makeSound() override {
 		cout << " Um~mea~ Um~mea~" << endl;
 	}
@@ -60,10 +60,10 @@ Animal* createRandomAnimal()
 
 	int idx = rand() % EAnimal::MAX;
 
-	Animal* animal= NULL;
+	Animal* animal = NULL;
 	if (idx == EAnimal::DOG)
 		animal = new Dog();
-	else if(idx == EAnimal::CAT)
+	else if (idx == EAnimal::CAT)
 		animal = new Cat();
 	else if (idx == EAnimal::COW)
 		animal = new Cow();
@@ -76,8 +76,8 @@ public:
 	Zoo() {
 		animals = new Animal * [10];
 	}
-	
-	 //배열이 넘치면 그냥 막아버리는 로직.
+
+	//배열이 넘치면 그냥 막아버리는 로직.
 	bool addAnimal_V1(Animal* animal) {
 		if (animalCount >= 10)
 		{
@@ -89,14 +89,14 @@ public:
 
 		return true;
 	};
-	void addAnimal(Animal* animal ) {
+	void addAnimal(Animal* animal) {
 
 		//애니멀 배열이 가득차면  배열을 10씩 늘려서 교체한다.
 		if (animalCount >= Resize)
 		{
-			Resize = animalCount + 10; 
-			Animal** NewArr = new Animal*[Resize];//(Animal**)malloc(sizeof(Animal*) * Resize) ;
-			
+			Resize = animalCount + 10;
+			Animal** NewArr = new Animal * [Resize];//(Animal**)malloc(sizeof(Animal*) * Resize) ;
+
 			for (int i = 0; i < animalCount;++i)
 			{
 				NewArr[i] = animals[i];
@@ -104,13 +104,13 @@ public:
 			delete[] animals;
 			animals = NewArr;
 		}
-		
+
 		animals[animalCount] = animal;
 		animalCount++;
 
 	};
 	void performActions() {
-		
+
 		for (int i = 0; i < animalCount;++i) {
 			Animal* ani = animals[i];
 			ani->makeSound();
@@ -123,19 +123,14 @@ public:
 			Animal* ani = animals[i];
 			delete ani;
 		}
-
+		delete[] animals;
 	}
 	~Zoo() {
-		for (int i = 0; i < animalCount;++i) {
-			Animal* ani = animals[i];
-			delete ani;
-		}
-		delete[] animals;
 	}
 private:
 	//Animal* animals[10];
 	Animal** animals;
-	
+
 	int animalCount = 0;
 	int Resize = 10;
 public:
@@ -152,7 +147,7 @@ void AddAnimalZoo(Zoo* zoo, Animal* animal)
 	if (!IsCreat)
 	{
 		delete animal;
-		animal = nullptr;
+		//animal = nullptr;
 	}
 }
 int main()
@@ -174,7 +169,7 @@ int main()
 		zoo->addAnimal(animalArr[i]);
 	}
 
-	for ( int i = 0; i < zoo->GetTotalAnimalCount(); ++i )
+	for (int i = 0; i < zoo->GetTotalAnimalCount(); ++i)
 	{
 		zoo->GetAnimals()[i]->makeSound();
 	}
@@ -182,7 +177,7 @@ int main()
 
 	for (int i = 0; i < 10;++i) {
 		creatAnimal = createRandomAnimal();
-		zoo->addAnimal( creatAnimal );
+		zoo->addAnimal(creatAnimal);
 		//AddAnimalZoo(zoo, creatAnimal);
 	}
 
